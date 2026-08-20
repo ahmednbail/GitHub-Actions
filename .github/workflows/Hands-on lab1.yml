@@ -1,9 +1,9 @@
 name : test
 on : 
-  pull_request : 
-   types:
-       - opened
-  workflow_dispatch : 
+    push : 
+       branches : 
+          - dev
+       path : '.github/workflows/*'
 jobs: 
       test:
          runs-on: ubuntu-latest
