@@ -1,0 +1,35 @@
+name : test
+on : 
+  pull_request : 
+   types:
+       - opened
+jobs: 
+      test:
+         runs-on: ubuntu-latest
+         steps  : 
+            - name : Get code
+              uses : actions/checkout@v7
+            - name : Install Ptyhon
+              uses : actions/setup-python@v6 
+              with :
+                   python-version : '3.11'
+            - name : intall the requirement packages
+              run  : pip install -r requirements.txt 
+            - name : test data quaality
+              run  : pytest tests/test_data_quality.py 
+      deployment:
+          needs   : test
+          runs-on : ubuntu-latest
+          steps   : 
+                - name : Get code
+                  uses : actions/checkout@v7
+                - name : install python 
+                  uses : actions/setup-python@v6
+                  with : 
+                        python-version :  '3.11'
+                - name : install the requirements
+                  run  : pip install -r requirements.txt
+                - name : print deploy   
+                  run  : echo "deploy"
+
+
