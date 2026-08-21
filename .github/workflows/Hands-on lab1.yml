@@ -33,7 +33,7 @@ jobs:
                   name : DataCraft-artifact 
                   path : artifact/*.csv      
       deployment:
-          needs   : test
+          needs   : [test,build]
           runs-on : ubuntu-latest
           steps   : 
                 - name : Get code
@@ -44,6 +44,15 @@ jobs:
                         python-version :  '3.11'
                 - name : install the requirements
                   run  : pip install -r requirements.txt
+                - name : dowenload artifact
+                  uses : actions/dowenload-artifact@v4
+                  with : 
+                        name : DataCraft-artifact
+                        path : data/
+                -name : list files in data foder
+                 run  : | 
+                        cd data/
+                        ls
                 - name : print deploy   
                   run  : echo "deploy"
 
