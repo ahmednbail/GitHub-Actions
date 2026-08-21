@@ -33,7 +33,7 @@ jobs:
                   name : DataCraft-artifact 
                   path : artifact/*.csv      
       deployment:
-          needs   : [test,build]
+          needs   : [ test , build ]
           runs-on : ubuntu-latest
           steps   : 
                 - name : Get code
@@ -49,8 +49,8 @@ jobs:
                   with : 
                         name : DataCraft-artifact
                         path : data/
-                -name : list files in data foder
-                 run  : | 
+                - name : list files in data foder
+                  run  : | 
                         cd data/
                         ls
                 - name : print deploy   
