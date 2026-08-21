@@ -14,7 +14,7 @@ jobs:
               uses : actions/cache@v4
               with :
                     path : ~/.cache/pip
-                    key : cache_1
+                    key  : req-${{ hashFiles('requirements.txt') }}
             - name : intall the requirement packages
               run  : pip install -r requirements.txt 
             - name : test data quaality
@@ -33,7 +33,7 @@ jobs:
               uses : actions/cache@v4
               with :
                     path : ~/.cache/pip
-                    key : cache_1
+                    key :  req-${{ hashFiles('requirements.txt') }}
             - name : install requiremnets
               run  : pip install -r requirements.txt
             - name : build Artifact
@@ -57,7 +57,7 @@ jobs:
                   uses : actions/cache@v4
                   with :
                         path : ~/.cache/pip
-                        key : cache_1  
+                        key :  req-${{ hashFiles('requirements.txt') }}  
                 - name : install the requirements
                   run  : pip install -r requirements.txt
                 - name : dowenload artifact
