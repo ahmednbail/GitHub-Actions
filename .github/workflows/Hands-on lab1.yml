@@ -10,11 +10,17 @@ jobs:
               uses : actions/setup-python@v6 
               with :
                    python-version : '3.11'
+            - name : caching
+              uses : actions/cache@v4
+              with :
+                    path : ~/.cache/pip
+                    key : cache_1
             - name : intall the requirement packages
               run  : pip install -r requirements.txt 
             - name : test data quaality
               run  : pytest tests/test_data_quality.py 
       build :
+        needs : test
         runs-on : ubuntu-latest
         steps : 
             - name : Get code
@@ -23,6 +29,11 @@ jobs:
               uses : actions/setup-python@v6
               with :
                     python-version : '3.11'
+            - name : caching
+              uses : actions/cache@v4
+              with :
+                    path : ~/.cache/pip
+                    key : cache_1
             - name : install requiremnets
               run  : pip install -r requirements.txt
             - name : build Artifact
@@ -33,7 +44,7 @@ jobs:
                   name : DataCraft-artifact 
                   path : artifact/*.csv      
       deployment:
-          needs   : [ test , build ]
+          needs   : build
           runs-on : ubuntu-latest
           steps   : 
                 - name : Get code
@@ -42,6 +53,11 @@ jobs:
                   uses : actions/setup-python@v6
                   with : 
                         python-version :  '3.11'
+                - name : caching
+                  uses : actions/cache@v4
+                  with :
+                        path : ~/.cache/pip
+                        key : cache_1  
                 - name : install the requirements
                   run  : pip install -r requirements.txt
                 - name : dowenload artifact
